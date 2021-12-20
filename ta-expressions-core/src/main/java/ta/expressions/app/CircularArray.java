@@ -35,11 +35,11 @@ public class CircularArray<T> {
 		return elements.length;
 	}
 
-	T get(int index) {
+	public T get(int index) {
 		return elements[index % length()];
 	}
 	
-	void set(int index, T element) {
+	public void set(int index, T element) {
 		elements[index % length()] = element;
 	}
 
@@ -47,21 +47,5 @@ public class CircularArray<T> {
 	public String toString() {
 		return Arrays.toString(elements);
 	}
-	
-	public static void main(String[] args) {
-		CircularArray<String> array = new CircularArray<>(5);
-		array.set(0, "a");
-		array.set(1, "b");
-		array.set(2, "c");
-		array.set(3, "d");
-		array.set(4, "e");
-		System.out.println(array);
 		
-		array.set(5, "f");
-		System.out.println(array);
-		
-	
-	}
-	
-	
 }

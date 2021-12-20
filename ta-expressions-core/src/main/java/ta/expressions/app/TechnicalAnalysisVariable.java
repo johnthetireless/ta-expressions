@@ -8,6 +8,7 @@ import ta.expressions.indicators.variables.OpenPrice;
 import ta.expressions.indicators.variables.Volume;
 
 public enum TechnicalAnalysisVariable {
+	
 	OPEN_PRICE(OpenPrice.KEYWORD, OpenPrice.INSTANCE),
 	HIGH_PRICE(HighPrice.KEYWORD, HighPrice.INSTANCE),
 	LOW_PRICE(LowPrice.KEYWORD, LowPrice.INSTANCE),
