@@ -28,7 +28,7 @@ public class StochRSI extends AnalyticFunction {
 		NumericExpression dividend = rsi.minus(lowest).multipliedBy(100);
 		NumericExpression divisor = highest.minus(lowest);
 		this.formula = new TernaryOperation(
-				divisor.isZero(), 
+				divisor.equalTo(0), 
 				Constant.valueOf(0), 
 				dividend.dividedBy(divisor)
 				);

@@ -30,7 +30,7 @@ public class StochK extends AnalyticFunction {
 		NumericExpression dividend = ClosePrice.INSTANCE.minus(LowestValue.lowestLow(n1)).multipliedBy(100);
 		NumericExpression divisor = HighestValue.highestHigh(n1).minus(LowestValue.lowestLow(n1));
 		NumericExpression raw = new TernaryOperation(
-				divisor.isZero(), 
+				divisor.equalTo(0), 
 				Constant.valueOf(0), 
 				dividend.dividedBy(divisor)
 				);

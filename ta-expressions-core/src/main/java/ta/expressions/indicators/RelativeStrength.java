@@ -22,9 +22,9 @@ public class RelativeStrength extends AnalyticFunction {
 		NumericExpression averageGain = new MMA(new Gain(e), n);
 		NumericExpression averageLoss = new MMA(new Loss(e), n);
 		this.formula = new TernaryOperation(
-				averageLoss.isZero(), 
+				averageLoss.equalTo(0), 
 				new TernaryOperation(
-						averageGain.isZero(),
+						averageGain.equalTo(0),
 						Constant.valueOf(100),  //not sure about this
 //						Constant.valueOf(0),
 						Constant.valueOf(0)),
