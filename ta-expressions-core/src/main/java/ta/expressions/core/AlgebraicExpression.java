@@ -5,7 +5,7 @@ package ta.expressions.core;
  * This class may be removed; it does nothing and only has one subclass.
  *
  */
-abstract class AlgebraicExpression extends ArithmeticExpression {
+public abstract class AlgebraicExpression extends ArithmeticExpression {
 	public AlgebraicExpression(String representation) {
 		super(representation);
 	}
