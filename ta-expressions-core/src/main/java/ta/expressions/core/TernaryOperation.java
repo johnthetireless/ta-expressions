@@ -6,6 +6,8 @@ import java.util.Set;
 
 /**
  * Objects of this class defer evaluation of the Java ternary operator.
+ * <p>
+ * This is used to define other numeric expressions, often to guard against division by zero.
  *
  */
 public class TernaryOperation extends NumericExpression {

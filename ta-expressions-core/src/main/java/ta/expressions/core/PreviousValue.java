@@ -4,13 +4,19 @@ import java.math.BigDecimal;
 import java.util.Set;
 
 /**
- * Returns the Nth previous value of another expression.
- * N = 1 in most cases.
+ * Returns the Nth previous value of an expression.
+ * N = 1 in many cases.
+ * <p>
+ * Previous value is used to define a lot of other numeric expressions.
+ * <p>
+ * It is also very useful for creating high-level expressions for trading rules.
  * 
  */
 //TODO: need a Boolean equivalent, so this will become a subclass of generic xxx
 class PreviousValue extends NumericExpression {
 	 
+	public static final String KEYWORD = "Previous";
+
 	public static PreviousValue of(NumericExpression e, int n) {
 		return new PreviousValue(e, n);
 	}
@@ -19,7 +25,7 @@ class PreviousValue extends NumericExpression {
 	private final int n;
 	
 	private PreviousValue(NumericExpression e, int n) {
-		super(functionRepresentation("Previous", e, n));
+		super(functionRepresentation(KEYWORD, e, n));
 		this.e = e;
 		this.n = n;
 	}

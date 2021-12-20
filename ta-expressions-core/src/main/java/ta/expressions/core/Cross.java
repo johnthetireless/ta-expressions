@@ -2,8 +2,13 @@ package ta.expressions.core;
 
 import java.util.Set;
 
-//TODO: make package-protected
-public abstract class Cross extends BooleanExpression {
+/**
+ * This is a shortcut for creating expressions like a > b AND a.previous() < b.previous()
+ * 
+ * The static factory methods are called by NumericExpression methods.  
+ *
+ */
+abstract class Cross extends BooleanExpression {
 	
 	public static BooleanExpression over(NumericExpression e1, NumericExpression e2) {
 		return new Over(e1, e2);

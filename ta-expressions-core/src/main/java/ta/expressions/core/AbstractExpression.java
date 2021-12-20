@@ -2,6 +2,28 @@ package ta.expressions.core;
 
 import java.util.Objects;
 
+/**
+ * Abstract base class for all expressions.
+ * <p>
+ * <ul>
+ * <li> Provides the representation of an expression 
+ * <li> implements toString() to return the string representation; objects print themselves naturally
+ * <li> implements equals() and hashCode() based on the string representation; objects may be used in maps and sets
+ * </ul>
+ * <p>
+ * This class forces subclasses to create their string representation in the constructor.
+ * It provides a set of (messy) static helper methods for this.  So far this has been fine.
+ * <p>
+ * NOTE: At some point the Expression interface may be transformed into a class.  
+ * The getValue() and evaluate() methods are public, as required by Java 8 interfaces.
+ * This is probably OK, but it exposes clients to an index into a data structure 
+ * that is not guaranteed to (still) hold a value for that index.
+ * This index is better hidden and used by protected methods.
+ * AbstractExpression and Expression will be merged at that time.
+ * The public API will be unaffected.
+ *
+ * @param <T> either BigDecimal or Boolean
+ */
 abstract class AbstractExpression<T> implements Expression<T> {
 
 	private final String representation;
@@ -70,7 +92,7 @@ abstract class AbstractExpression<T> implements Expression<T> {
 		return symbol + "(" + e.representation() + "," + n1 + "," + n2 + ")";
 	}
 
-	//TODO: this is way past silly
+	//TODO: this is way past silly; consolidate or do something else
 	protected static <T> String functionRepresentation(String symbol, Expression<T> e, int n, double k) {
 		return symbol + "(" + e.representation() + "," + n + "," + k + ")";
 	}

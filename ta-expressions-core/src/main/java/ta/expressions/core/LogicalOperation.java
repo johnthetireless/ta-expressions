@@ -4,14 +4,22 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BinaryOperator;
 
+/**
+ * AND and OR
+ *
+ */
 class LogicalOperation extends BooleanExpression {
 	
+	// keywords
+	public static final String AND 	= "AND";
+	public static final String OR 	= "OR";
+	
 	public static LogicalOperation and(BooleanExpression e1, BooleanExpression e2) {
-		return new LogicalOperation("AND", (a, b) -> a && b, e1, e2);
+		return new LogicalOperation(AND, (a, b) -> a && b, e1, e2);
 	}
 	
 	public static LogicalOperation or(BooleanExpression e1, BooleanExpression e2) {
-		return new LogicalOperation("OR", (a, b) -> a || b, e1, e2);
+		return new LogicalOperation(OR, (a, b) -> a || b, e1, e2);
 	}
 	
 	private final BinaryOperator<Boolean> operator;

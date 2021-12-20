@@ -4,8 +4,25 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Set;
 import java.util.function.BiFunction;
-
+/** 
+ * Provides static factory methods to create arithmetic operations and math functions.
+ * <p>
+ * These are called by the NumericExpression class.  They are not meant for the public API.
+ *
+ */
 class Arithmetic {
+	
+	//keywords
+	public static final String MAX 			= "MAX";
+	public static final String MIN 			= "MIN";
+	public static final String ABS 			= "ABS";
+	public static final String SQRT 		= "SQRT";
+	public static final String NEGATION 	= "Negation";
+	public static final String SIGN 		= "Sign";
+	public static final String POW 			= "POW";
+	public static final String LOG10 		= "Log10";
+	
+	public static final String[] KEYWORDS = {MAX,MIN,ABS,SQRT,NEGATION,SIGN,POW,LOG10};
 	
 	static NumericExpression sum(NumericExpression e1, NumericExpression e2) {
 		return new BinaryOperation("+", (v1, v2, mc) -> v1.add(v2, mc), e1, e2);
@@ -24,23 +41,23 @@ class Arithmetic {
 	}
 
 	static NumericExpression max(NumericExpression e1, NumericExpression e2) {
-		return new BinaryFunction("MAX", (v1, v2, ignored) -> v1.max(v2), e1, e2);
+		return new BinaryFunction(MAX, (v1, v2, ignored) -> v1.max(v2), e1, e2);
 	}
 
 	static NumericExpression min(NumericExpression e1, NumericExpression e2) {
-		return new BinaryFunction("MIN", (v1, v2, ignored) -> v1.min(v2), e1, e2);
+		return new BinaryFunction(MIN, (v1, v2, ignored) -> v1.min(v2), e1, e2);
 	}
 	
 	static NumericExpression abs(NumericExpression e) {
-		return new UnaryFunction("ABS", (v, mc) -> v.abs(mc), e);
+		return new UnaryFunction(ABS, (v, mc) -> v.abs(mc), e);
 	}
 
 	static NumericExpression sqrt(NumericExpression e) {
-		return new UnaryFunction("SQRT", (v, mc) -> v.sqrt(mc), e);
+		return new UnaryFunction(SQRT, (v, mc) -> v.sqrt(mc), e);
 	}
 
 	static NumericExpression negate(NumericExpression e) {
-		return new UnaryFunction("Negation", (v, mc) -> v.negate(mc), e);
+		return new UnaryFunction(NEGATION, (v, mc) -> v.negate(mc), e);
 	}
 
 	static NumericExpression signum(NumericExpression e) {
@@ -132,7 +149,7 @@ class Arithmetic {
 		private final NumericExpression e;
 
 		public Signum(NumericExpression e) {
-			super(functionRepresentation("Sign", e));
+			super(functionRepresentation(SIGN, e));
 			this.e = e;
 		}
 
@@ -163,7 +180,7 @@ class Arithmetic {
 		private final int n;
 		
 		public ExponentPower(NumericExpression e, int n) {
-			super(functionRepresentation("POW", e, n));
+			super(functionRepresentation(POW, e, n));
 			this.e = e;
 			this.n = n;
 		}
@@ -188,7 +205,7 @@ class Arithmetic {
 		private final NumericExpression e;
 
 		public Log10(NumericExpression e) {
-			super(functionRepresentation("Log10", e));
+			super(functionRepresentation(LOG10, e));
 			this.e = e;
 		}
 		

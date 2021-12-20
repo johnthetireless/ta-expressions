@@ -2,6 +2,10 @@ package ta.expressions.core;
 
 import java.util.Set;
 
+/**
+ * Helper class; mostly used by recursive expressions as the check in a ternary operation.
+ *
+ */
 class IsNull extends BooleanExpression {
 
 	private final NumericExpression e;

@@ -2,12 +2,20 @@ package ta.expressions.core;
 
 import java.util.Set;
 
+/**
+ * NOT
+ * <P>
+ * This is created by calling not() on a Boolean expression.  One can usually avoid needing to use this.
+ *
+ */
 class NotOperation extends BooleanExpression {
+
+	public static final String KEYWORD = "NOT";
 
 	private final BooleanExpression e;
 	
 	public NotOperation(BooleanExpression e) {
-		super(functionRepresentation("NOT", e));
+		super(functionRepresentation(KEYWORD, e));
 		this.e = e;
 	}
 

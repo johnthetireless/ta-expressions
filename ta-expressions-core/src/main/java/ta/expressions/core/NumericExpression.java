@@ -5,19 +5,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * A numeric expression object defers an operation that produces a BigDecimal result.
+ * A numeric expression defers an operation that produces a BigDecimal result.
+ * <p>
  * Variables like ClosePrice.INSTANCE are numeric expressions, 
  * as are the objects created when methods like plus() and minus() are invoked.
- * 
- * Immediate subclasses of NumericExpression perform lower-level operations.
- * Arithmetic operations, math functions like sqrt() and a few basic statistical operations fall into this category.
+ * <p>
+ * Low-level subclasses of NumericExpression perform arithmetic, math and basic statistical functions.
+ * <p>
  * Most of the calculations used in technical analysis are formed at a higher level, 
  * building upon the arithmetic and stats expressions.
- * These TA expressions are almost all subclasses of AnalysisFunction, 
- * which was designed for a building block approach.
+ * <p>
  *
  */
 public abstract class NumericExpression extends AbstractExpression<BigDecimal> {
+	
+	public static final String[] ARITHMETIC_KEYWORDS = Arithmetic.KEYWORDS;
 
 	public NumericExpression(String representation) {
 		super(representation); 
@@ -170,10 +172,6 @@ public abstract class NumericExpression extends AbstractExpression<BigDecimal> {
 	
 	public BooleanExpression isNull() {
 		return new IsNull(this);
-	}
-	
-	public BooleanExpression isZero() {
-		return NumericPredicate.isZero(this);
 	}
 	
 	public NumericExpression previous(int n) {

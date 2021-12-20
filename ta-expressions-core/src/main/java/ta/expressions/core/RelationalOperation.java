@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.function.BiPredicate;
 
+/**
+ * >, >=, <. <=, ==, !=
+ *
+ */
 class RelationalOperation extends BooleanExpression {
 	
 	public static BooleanExpression greaterThan(NumericExpression e1, NumericExpression e2) {
