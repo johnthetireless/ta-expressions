@@ -1,6 +1,6 @@
 package ta.expressions.demo;
 
-import ta.expressions.app.TechnicalAnalysisIndicator;
+import ta.expressions.indicators.adx.ADXR;
 
 public class Indicators {
 
@@ -13,8 +13,6 @@ public class Indicators {
 			String desc = ind.description();
 			System.out.println(desc);
 		}
-		
-		System.out.println();
 		
 
 	}

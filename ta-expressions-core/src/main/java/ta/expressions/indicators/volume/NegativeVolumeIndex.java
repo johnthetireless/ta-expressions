@@ -9,25 +9,21 @@ import ta.expressions.core.TernaryOperation;
 import ta.expressions.indicators.variables.ClosePrice;
 import ta.expressions.indicators.variables.Volume;
 
-public class NVI extends AnalyticFunction {
+public class NegativeVolumeIndex extends AnalyticFunction {
 
 	public static final String KEYWORD = "NVI";
 
-	public static final NVI INSTANCE = new NVI();
+	public static final NegativeVolumeIndex INSTANCE = new NegativeVolumeIndex();
 	
-	public static NVI fromString(String ignored) {
+	public static NegativeVolumeIndex fromString(String ignored) {
 		return INSTANCE;
 	}
 	
-	private NVI() {
+	private final NumericExpression formula;
+	
+	private NegativeVolumeIndex() {
 		super(KEYWORD);
-	}
-
-
-	@Override
-	protected NumericExpression getFormula() {
-		
-		return new TernaryOperation(
+		this.formula = new TernaryOperation(
 				previous().isNull(),
 				Constant.valueOf(1000),
 				new TernaryOperation(
@@ -36,6 +32,11 @@ public class NVI extends AnalyticFunction {
 						previous()
 						)
 				);
+	}
+
+	@Override
+	protected NumericExpression getFormula() {
+		return formula;
 	}
 	
 }

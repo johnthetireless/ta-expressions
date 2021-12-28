@@ -1,7 +1,5 @@
 package ta.expressions.demo;
 
-import ta.expressions.app.TechnicalAnalysisTerm;
-import ta.expressions.app.TechnicalAnalysisVariable;
 import ta.expressions.common.change.Change;
 import ta.expressions.common.change.Gain;
 import ta.expressions.common.change.Loss;

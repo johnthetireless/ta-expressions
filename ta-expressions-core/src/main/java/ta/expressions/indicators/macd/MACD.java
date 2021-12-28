@@ -28,6 +28,11 @@ public class MACD extends AnalyticFunction {
 		this.n2 = n2;
 	}
 	
+	@Override
+	protected NumericExpression getFormula() {
+		return formula;
+	}
+	
 	public AnalyticFunction signal(int n) {
 		return new MACDSignal(this, n);
 	}
@@ -36,11 +41,6 @@ public class MACD extends AnalyticFunction {
 		return new MACDHistogram(n1, n2, n);
 	}
 
-	@Override
-	protected NumericExpression getFormula() {
-		return formula;
-	}
-	
 	int n1() {
 		return n1;
 	}

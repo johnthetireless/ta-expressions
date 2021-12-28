@@ -7,12 +7,14 @@ import ta.expressions.indicators.volatility.TrueLow;
 
 public class BuyingPressure extends BasicAnalyticFunction {
 
-	public static final NumericExpression FORMULA = ClosePrice.INSTANCE.minus(TrueLow.INSTANCE);
+	public static final String KEYWORD = "BuyingPressure";
+
+	private static final NumericExpression FORMULA = ClosePrice.INSTANCE.minus(TrueLow.INSTANCE);
 	
 	public static final BuyingPressure INSTANCE = new BuyingPressure();
 
 	private BuyingPressure() {
-		super("BuyingPressure", FORMULA);
+		super(KEYWORD, FORMULA);
 	}
 
 

@@ -1,34 +1,47 @@
-package ta.expressions.app;
+package ta.expressions.demo;
 
-import java.awt.Color;
 import java.util.function.Function;
 
 import ta.expressions.common.stats.Slope;
 import ta.expressions.core.NumericExpression;
-import ta.expressions.indicators.AwesomeOscillator;
 import ta.expressions.indicators.AccelerationDeceleration;
+import ta.expressions.indicators.AwesomeOscillator;
 import ta.expressions.indicators.BalanceOfPower;
 import ta.expressions.indicators.CCI;
 import ta.expressions.indicators.CMO;
 import ta.expressions.indicators.ConnorsRSI;
-import ta.expressions.indicators.EMV;
 import ta.expressions.indicators.DEMA;
-import ta.expressions.indicators.TEMA;
+import ta.expressions.indicators.EMV;
 import ta.expressions.indicators.ForceIndex;
 import ta.expressions.indicators.MassIndex;
 import ta.expressions.indicators.MoneyFlowIndex;
 import ta.expressions.indicators.RSI;
+import ta.expressions.indicators.TEMA;
 import ta.expressions.indicators.TRIX;
-import ta.expressions.indicators.macd.*;
+import ta.expressions.indicators.TrueStrengthIndex;
 import ta.expressions.indicators.adx.ADX;
-import ta.expressions.indicators.bollinger.*;
-import ta.expressions.indicators.adx.PlusDI;
+import ta.expressions.indicators.adx.ADXR;
 import ta.expressions.indicators.adx.MinusDI;
+import ta.expressions.indicators.adx.PlusDI;
+import ta.expressions.indicators.aroon.AroonDown;
 import ta.expressions.indicators.aroon.AroonOscillator;
 import ta.expressions.indicators.aroon.AroonUp;
-import ta.expressions.indicators.aroon.AroonDown;
-import ta.expressions.indicators.chandelier.*;
-import ta.expressions.indicators.keltner.*;
+import ta.expressions.indicators.bollinger.BollingerBandwidth;
+import ta.expressions.indicators.bollinger.BollingerLowerBand;
+import ta.expressions.indicators.bollinger.BollingerMiddleBand;
+import ta.expressions.indicators.bollinger.BollingerPercentB;
+import ta.expressions.indicators.bollinger.BollingerUpperBand;
+import ta.expressions.indicators.chandelier.ChandlelierExitLong;
+import ta.expressions.indicators.chandelier.ChandlelierExitShort;
+import ta.expressions.indicators.keltner.KeltnerLowerChannel;
+import ta.expressions.indicators.keltner.KeltnerMiddleChannel;
+import ta.expressions.indicators.keltner.KeltnerUpperChannel;
+import ta.expressions.indicators.macd.MACD;
+import ta.expressions.indicators.macd.MACDHistogram;
+import ta.expressions.indicators.macd.MACDSignal;
+import ta.expressions.indicators.macd.PPO;
+import ta.expressions.indicators.macd.PPOHistogram;
+import ta.expressions.indicators.macd.PPOSignal;
 import ta.expressions.indicators.stochastics.StochD;
 import ta.expressions.indicators.stochastics.StochK;
 import ta.expressions.indicators.stochastics.StochRSI;
@@ -39,382 +52,341 @@ import ta.expressions.indicators.volatility.ChaikinVolatility;
 import ta.expressions.indicators.volatility.ChoppinessIndex;
 import ta.expressions.indicators.volatility.Volatility;
 import ta.expressions.indicators.volume.AccumulationDistribution;
-import ta.expressions.indicators.volume.OnBalanceVolume;
-import ta.expressions.indicators.volume.NVI;
 import ta.expressions.indicators.volume.ChaikinMoneyFlow;
 import ta.expressions.indicators.volume.ChaikinOscillator;
+import ta.expressions.indicators.volume.NegativeVolumeIndex;
+import ta.expressions.indicators.volume.OnBalanceVolume;
 
 public enum TechnicalAnalysisIndicator {
 	
-	ACCUM_DIST(
+	ACCUMULATION_DISTRIBUTION(
 			AccumulationDistribution.KEYWORD, 
 			s -> AccumulationDistribution.INSTANCE,
-			"Accumulation Distribution Line",
-			Color.black
+			"Accumulation Distribution Line"
 			),
 
-	ACCEL_DECEL(
+	ACCELERATION_DECELERATION(
 			AccelerationDeceleration.KEYWORD, 
 			AccelerationDeceleration::fromString, 
-			"Acceleration/Decelation",
-			Color.black
+			"Acceleration/Decelation"
 			),
 
-	ADX_LINE(
+	AVERAGE_DIRECTIONAL_INDEX(
 			ADX.KEYWORD, 
 			ADX::fromString, 
-			"Average Directional Index",
-			Color.black
+			"Average Directional Index"
 			),
 
-	ATR_LINE(
+	AVERAGE_DIRECTIONAL_INDEX_RATING(
+			ADXR.KEYWORD, 
+			ADXR::fromString, 
+			"Average Directional Index Rating"
+			),
+
+	AVERAGE_TRUE_RANGE(
 			ATR.KEYWORD, 
 			ATR::fromString, 
-			"Average True Range",
-			Color.black
+			"Average True Range"
 			),
 
-	AWESOME(
+	AWESOME_OSCILLATOR(
 			AwesomeOscillator.KEYWORD, 
 			AwesomeOscillator::fromString, 
-			"Awesome Oscillator",
-			Color.black
+			"Awesome Oscillator"
 			),
 	
-	AROON_OSC(
+	AROON_OSCILLATOR(
 			AroonOscillator.KEYWORD, 
 			AroonOscillator::fromString, 
-			"Aroon Oscillator",
-			Color.black
+			"Aroon Oscillator"
 			),
 	
 	AROON_UP(
 			AroonUp.KEYWORD, 
 			AroonUp::fromString, 
-			"Aroon Up",
-			Color.green
+			"Aroon Up"
 			),
 	
 	AROON_DOWN(
 			AroonDown.KEYWORD, 
 			AroonDown::fromString, 
-			"Aroon Down",
-			Color.red
+			"Aroon Down"
 			),
 	
-	BB_UPPER(
+	BOLLINGER_UPPER_BAND(
 			BollingerUpperBand.KEYWORD, 
 			BollingerUpperBand::fromString, 
-			"Bollinger Upper Band",
-			Color.black
+			"Bollinger Upper Band"
 			),	
 
-	BB_MIDDLE(
+	BOLLINGER_MIDDLE_BAND(
 			BollingerMiddleBand.KEYWORD, 
 			BollingerMiddleBand::fromString, 
-			"Bollinger Middle Band",
-			Color.black
+			"Bollinger Middle Band"
 			),	
 
-	BB_LOWER(
+	BOLLINGER_LOWER_BAND(
 			BollingerLowerBand.KEYWORD, 
 			BollingerLowerBand::fromString, 
-			"Bollinger Lower Band",
-			Color.black
+			"Bollinger Lower Band"
 			),	
 
-	BB_PERCENTB(
+	BOLLINGER_PERCENTB(
 			BollingerPercentB.KEYWORD, 
 			BollingerPercentB::fromString, 
-			"Bollinger Bands %B",
-			Color.black
+			"Bollinger Bands %B"
 			),	
 
-	BB_BANDWIDTH(
+	BOLLINGER_BANDWIDTH(
 			BollingerBandwidth.KEYWORD, 
 			BollingerBandwidth::fromString, 
-			"Bollinger Bandwidth",
-			Color.black
+			"Bollinger Bandwidth"
 			),	
 
-	BOP(
+	BALANCE_OF_POWER(
 			BalanceOfPower.KEYWORD, 
 			BalanceOfPower::fromString, 
-			"Balance of Power",
-			Color.black
+			"Balance of Power"
 			),
 
-	CHAIKIN_OSC(
+	CHAIKIN_OSCILLATOR(
 			ChaikinOscillator.KEYWORD, 
 			ChaikinOscillator::fromString, 
-			"Chaikin Oscillator",
-			Color.black
+			"Chaikin Oscillator"
 			),
 
 	CHAIKIN_VOLATILITY(
 			ChaikinVolatility.KEYWORD, 
 			ChaikinVolatility::fromString, 
-			"Chaikin Volatility",
-			Color.black
+			"Chaikin Volatility"
 			),
 
-	CHANDELIER_LONG(
+	CHANDELIER_EXIT_LONG(
 			ChandlelierExitLong.KEYWORD, 
 			ChandlelierExitLong::fromString, 
-			"Chandelier Exit Long",
-			Color.black
+			"Chandelier Exit Long"
 			),
 
-	CHANDELIER_SHORT(
+	CHANDELIER_EXIT_SHORT(
 			ChandlelierExitShort.KEYWORD, 
 			ChandlelierExitShort::fromString, 
-			"Chandelier Exit Short",
-			Color.black
+			"Chandelier Exit Short"
 			),
 
 	CHOPPINESS_INDEX(
 			ChoppinessIndex.KEYWORD, 
 			ChoppinessIndex::fromString, 
-			"Choppiness Index",
-			Color.black
+			"Choppiness Index"
 			),
 
-	CM_OSC(
+	CHANDE_MOMENTIUM_OSCILLATOR(
 			CMO.KEYWORD, 
 			CMO::fromString, 
-			"Chande Momentum Oscillator",
-			Color.black
+			"Chande Momentum Oscillator"
 			),
 
-	CMF(
+	CHAIKIN_MONEY_FLOW(
 			ChaikinMoneyFlow.KEYWORD, 
 			ChaikinMoneyFlow::fromString, 
-			"Chaikin Money Flow",
-			Color.black
+			"Chaikin Money Flow"
 			),
 
-	CC_INDEX(
+	COMMODOTY_CHANNEL_INDEX(
 			CCI.KEYWORD, 
 			CCI::fromString, 
-			"Commodity Channel Index",
-			Color.black
+			"Commodity Channel Index"
 			),
 
 	CONNORS_RSI(
 			ConnorsRSI.KEYWORD, 
 			ConnorsRSI::fromString, 
-			"Connors' RSI",
-			Color.black
+			"Connors' RSI"
 			),
 
-	DEMA_IND(
+	DOUBLE_EXPONTENTIAL_MOVING_AVERAGE(
 			DEMA.KEYWORD, 
 			DEMA::fromString, 
-			"Double Exponential Moving Average",
-			Color.black
+			"Double Exponential Moving Average"
 			),
 
-	EMV_LINE(
+	EASE_OF_MOVEMENT(
 			EMV.KEYWORD, 
 			EMV::fromString, 
-			"Ease of Movement",
-			Color.black
+			"Ease of Movement"
 			),
 
 	FORCE_INDEX(
 			ForceIndex.KEYWORD, 
 			ForceIndex::fromString, 
-			"Force Index",
-			Color.black
+			"Force Index"
 			),
 
-	KELTNER_UPPER(
+	KELTNER_UPPER_CHANNEL(
 			KeltnerUpperChannel.KEYWORD, 
 			KeltnerUpperChannel::fromString, 
-			"Keltner Upper Channel",
-			Color.black
+			"Keltner Upper Channel"
 			),
 
-	KELTNER_MIDDLE(
+	KELTNER_MIDDLE_CHANNEL(
 			KeltnerMiddleChannel.KEYWORD, 
 			KeltnerMiddleChannel::fromString, 
-			"Keltner Middle Channel",
-			Color.black
+			"Keltner Middle Channel"
 			),
 
-	KELTNER_LOWER(
+	KELTNER_LOWER_CHANNEL(
 			KeltnerLowerChannel.KEYWORD, 
 			KeltnerLowerChannel::fromString, 
-			"Keltner Lower Channel",
-			Color.black
+			"Keltner Lower Channel"
 			),
 
-	MACD_LINE(
+	MOVEING_AERAGE_CONVERGENCE_DIVERGENCE(
 			MACD.KEYWORD, 
 			MACD::fromString, 
-			"Moving Average Convergence/Divergence",
-			Color.black
+			"Moving Average Convergence/Divergence"
 			),
 
 	MACD_SIGNAL(
 			MACDSignal.KEYWORD, 
 			MACDSignal::fromString, 
-			"Moving Average Convergence/Divergence Signal Line",
-			Color.red
+			"Moving Average Convergence/Divergence Signal Line"
 			),
 
 	MACD_HISTOGRAM(
 			MACDHistogram.KEYWORD, 
 			MACDHistogram::fromString, 
-			"Moving Average Convergence/Divergence Histogram",
-			Color.gray
+			"Moving Average Convergence/Divergence Histogram"
 			),
 
 	MASS_INDEX(
 			MassIndex.KEYWORD, 
 			MassIndex::fromString, 
-			"Mass Index",
-			Color.black
+			"Mass Index"
 			),
 
-	MFI(
+	MONEY_FLOW_INDEX(
 			MoneyFlowIndex.KEYWORD, 
 			MoneyFlowIndex::fromString, 
-			"Money Flow Index",
-			Color.black
+			"Money Flow Index"
 			),
 
-	MINUS_DI(
+	MINUS_DIRECTIONAL_INDEX(
 			MinusDI.KEYWORD, 
 			MinusDI::fromString, 
-			"Negative Directional Index (-DI)",
-			Color.red
+			"Negative Directional Index (-DI)"
 			),
 
-	NVI_LINE(
-			NVI.KEYWORD, 
-			s -> NVI.INSTANCE,
-			"Negative Volume Index",
-			Color.black
+	NEGATIVE_VOLUME_INDEX(
+			NegativeVolumeIndex.KEYWORD, 
+			s -> NegativeVolumeIndex.INSTANCE,
+			"Negative Volume Index"
 			),
 
-	PLUS_DI(
+	ON_BALANCE_VOLUME(
+			OnBalanceVolume.KEYWORD, 
+			s -> OnBalanceVolume.INSTANCE,
+			"On Balance Volume"
+			),
+
+	PLUS_DIRECTIONAL_INDEX(
 			PlusDI.KEYWORD, 
 			PlusDI::fromString, 
-			"Positive Directional Index (+DI)",
-			Color.green
+			"Positive Directional Index (+DI)"
 			),
 
-	PPO_LINE(
+	PERCENTAGE_PRICE_OSCILLATOR(
 			PPO.KEYWORD, 
 			PPO::fromString, 
-			"Percentage Price Oscillator",
-			Color.black
+			"Percentage Price Oscillator"
 			),
 
 	PPO_SIGNAL(
 			PPOSignal.KEYWORD, 
 			PPOSignal::fromString, 
-			"Percentage Price Oscillator Signal Line",
-			Color.red
+			"Percentage Price Oscillator Signal Line"
 			),
 
 	PPO_HISTOGRAM(
 			PPOHistogram.KEYWORD, 
 			PPOHistogram::fromString, 
-			"Percentage Price Oscillator Histogram",
-			Color.gray
+			"Percentage Price Oscillator Histogram"
 			),
 
-	RS_INDEX(
+	RELATIVE_STRENGTH_INDEX(
 			RSI.KEYWORD, 
 			RSI::fromString, 
-			"Relative Strength Index",
-			Color.black
+			"Relative Strength Index"
 			),
 
 	SLOPE(
 			Slope.KEYWORD, 
 			Slope::fromString, 
-			"Slope of linear regression line",
-			Color.black
+			"Slope of linear regression line"
 			),
 
-	STOCH_K(
+	STOCHASTICS_OSCILLATOR_K(
 			StochK.KEYWORD, 
 			StochK::fromString, 
-			"Stochastics Oscillator %K",
-			Color.black
+			"Stochastics Oscillator %K"
 			),
 
-	STOCH_D(
+	STOCHASTICS_OSCILLATOR_D(
 			StochD.KEYWORD, 
 			StochD::fromString, 
-			"Stochastics Oscillator %D",
-			Color.red
+			"Stochastics Oscillator %D"
 			),
 
-	STOCH_RSI(
+	STOCHASTICS_RSI(
 			StochRSI.KEYWORD, 
 			StochRSI::fromString, 
-			"Stochastics RSI",
-			Color.black
+			"Stochastics RSI"
 			),
 
-	TEMA_IND(
+	TRIMPLE_EXPONENTIAL_MOVING_AVERAGE(
 			TEMA.KEYWORD, 
 			TEMA::fromString, 
-			"Triple Exponential Moving Average",
-			Color.black
+			"Triple Exponential Moving Average"
 			),
 
 	TRIX_LINE(
 			TRIX.KEYWORD, 
 			TRIX::fromString, 
-			"TRIX",
-			Color.black
+			"TRIX"
 			),
 
-	ULTIMATE(
+	TRUE_STRENGTH_INDEX(
+			TrueStrengthIndex.KEYWORD, 
+			TrueStrengthIndex::fromString, 
+			"True Strenth Index"
+			),
+
+	ULTIMATE_OSCILLATOR(
 			UltimateOscillator.KEYWORD, 
 			UltimateOscillator::fromString, 
-			"Ultimate Oscillator",
-			Color.black
+			"Ultimate Oscillator"
 			),
 
 	VOLATILITY(
 			Volatility.KEYWORD, 
 			Volatility::fromString, 
-			"Volatility",
-			Color.black
+			"Volatility"
 			),
 
 	VOLUME(
 			Volume.KEYWORD, 
 			s -> Volume.INSTANCE,
-			"Volume",
-			Color.gray
-			),
-
-	OBV(
-			OnBalanceVolume.KEYWORD, 
-			s -> OnBalanceVolume.INSTANCE,
-			"On Balance Volume",
-			Color.black
+			"Volume"
 			);
 
 	private TechnicalAnalysisIndicator(String keyword, Function<String, NumericExpression> factory, 
-					String description, Color defaultColor) {
+					String description) {
 				this.keyword = keyword;
 				this.factory = factory;
 				this.description = description;
-				this.defaultColor = defaultColor;
 			}
 
 	private final String keyword;
 	private final Function<String, NumericExpression> factory;
 	private final String description;
-	private final Color defaultColor;
 	
 	public String keyword() {
 		return keyword;
@@ -428,10 +400,6 @@ public enum TechnicalAnalysisIndicator {
 		return description;
 	}
 	
-	public Color defaultColor() {
-		return defaultColor;
-	}
-
 	@Override
 	public String toString() {
 		return keyword;

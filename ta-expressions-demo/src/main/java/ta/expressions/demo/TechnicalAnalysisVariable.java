@@ -1,4 +1,4 @@
-package ta.expressions.app;
+package ta.expressions.demo;
 
 import ta.expressions.core.NumericExpression;
 import ta.expressions.indicators.variables.ClosePrice;
