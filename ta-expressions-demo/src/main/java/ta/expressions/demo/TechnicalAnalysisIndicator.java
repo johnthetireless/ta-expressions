@@ -42,9 +42,10 @@ import ta.expressions.indicators.macd.MACDSignal;
 import ta.expressions.indicators.macd.PPO;
 import ta.expressions.indicators.macd.PPOHistogram;
 import ta.expressions.indicators.macd.PPOSignal;
-import ta.expressions.indicators.stochastics.StochD;
-import ta.expressions.indicators.stochastics.StochK;
-import ta.expressions.indicators.stochastics.StochRSI;
+import ta.expressions.indicators.stochastics.StochasticOscillator;
+import ta.expressions.indicators.stochastics.StochasticOscillatorSignal;
+import ta.expressions.indicators.stochastics.StochasticRSI;
+import ta.expressions.indicators.stochastics.StochasticMomentumIndex;
 import ta.expressions.indicators.ultimate.UltimateOscillator;
 import ta.expressions.indicators.variables.Volume;
 import ta.expressions.indicators.volatility.ATR;
@@ -323,21 +324,27 @@ public enum TechnicalAnalysisIndicator {
 			"Slope of linear regression line"
 			),
 
+	STOCHASTICS_MOMENTUM_INDEX(
+			StochasticMomentumIndex.KEYWORD, 
+			StochasticMomentumIndex::fromString, 
+			"Stochastics Momentum Index"
+			),
+
 	STOCHASTICS_OSCILLATOR_K(
-			StochK.KEYWORD, 
-			StochK::fromString, 
+			StochasticOscillator.KEYWORD, 
+			StochasticOscillator::fromString, 
 			"Stochastics Oscillator %K"
 			),
 
 	STOCHASTICS_OSCILLATOR_D(
-			StochD.KEYWORD, 
-			StochD::fromString, 
+			StochasticOscillatorSignal.KEYWORD, 
+			StochasticOscillatorSignal::fromString, 
 			"Stochastics Oscillator %D"
 			),
 
 	STOCHASTICS_RSI(
-			StochRSI.KEYWORD, 
-			StochRSI::fromString, 
+			StochasticRSI.KEYWORD, 
+			StochasticRSI::fromString, 
 			"Stochastics RSI"
 			),
 

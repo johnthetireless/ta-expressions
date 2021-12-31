@@ -9,18 +9,18 @@ import ta.expressions.core.TernaryOperation;
 import ta.expressions.indicators.ParameterString;
 import ta.expressions.indicators.RSI;
 
-public class StochRSI extends AnalyticFunction {
+public class StochasticRSI extends AnalyticFunction {
 	
 	public static final String KEYWORD = "StochRSI";
 
-	public static StochRSI fromString(String params) {
+	public static StochasticRSI fromString(String params) {
 		ParameterString ps = new ParameterString(params);
-		return new StochRSI(ps.intValue(0));
+		return new StochasticRSI(ps.intValue(0));
 	}
 
 	private final NumericExpression formula;
 
-	public StochRSI(int n) {
+	public StochasticRSI(int n) {
 		super(functionRepresentation(KEYWORD, n));
 		NumericExpression rsi = new RSI(n);
 		NumericExpression lowest = new LowestValue(rsi, n);
