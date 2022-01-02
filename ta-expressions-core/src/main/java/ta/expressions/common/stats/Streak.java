@@ -7,6 +7,14 @@ import ta.expressions.common.change.Change;
 import ta.expressions.core.AnalysisContext;
 import ta.expressions.core.NumericExpression;
 
+/*
+ * Counts the number of consecutive increases or decreases.
+ * Returns a positive number when value increases.
+ * Returns a negative number when value decreases.
+ * 
+ * +3 means value has increased for 3 consecutive periods
+ * -7 means value has decreased for 7 consecutive periods
+ */
 //TODO: subclass of ArithmeticExpression?
 public class Streak extends NumericExpression {
 

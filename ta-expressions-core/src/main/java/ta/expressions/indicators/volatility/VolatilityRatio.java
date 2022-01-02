@@ -6,6 +6,8 @@ import ta.expressions.core.NumericExpression;
 import ta.expressions.indicators.ParameterString;
 
 /**
+ * True range divided by its EMA
+ * 
  * Wide-ranging days will have VR > 2.0
  *
  */

@@ -1,7 +1,6 @@
 package ta.expressions.demo;
 
 import java.util.List;
-import java.util.Set;
 
 import ta.expressions.core.BooleanExpression;
 import ta.expressions.core.NumericExpression;

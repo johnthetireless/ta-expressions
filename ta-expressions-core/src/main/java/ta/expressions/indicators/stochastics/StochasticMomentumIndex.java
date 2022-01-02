@@ -3,7 +3,6 @@ package ta.expressions.indicators.stochastics;
 import ta.expressions.common.stats.EMA;
 import ta.expressions.common.stats.HighestValue;
 import ta.expressions.common.stats.LowestValue;
-import ta.expressions.common.stats.SMA;
 import ta.expressions.core.AnalyticFunction;
 import ta.expressions.core.Constant;
 import ta.expressions.core.NumericExpression;

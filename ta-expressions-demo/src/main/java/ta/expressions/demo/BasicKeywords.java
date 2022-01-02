@@ -1,15 +1,10 @@
 package ta.expressions.demo;
 
-import ta.expressions.common.change.Change;
 import ta.expressions.common.change.Gain;
 import ta.expressions.core.BooleanExpression;
-import ta.expressions.core.Constant;
 import ta.expressions.core.NumericExpression;
-import ta.expressions.core.TernaryOperation;
 import ta.expressions.indicators.RSI;
 import ta.expressions.indicators.variables.ClosePrice;
-import ta.expressions.indicators.variables.HighPrice;
-import ta.expressions.indicators.variables.LowPrice;
 
 public class BasicKeywords {
 

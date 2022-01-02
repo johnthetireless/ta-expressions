@@ -10,10 +10,6 @@ import ta.expressions.app.CalculationResult;
 import ta.expressions.app.CsvReader;
 import ta.expressions.core.Aggregate;
 import ta.expressions.core.NumericExpression;
-import ta.expressions.indicators.adx.ADX;
-import ta.expressions.indicators.adx.ADXR;
-import ta.expressions.indicators.adx.MinusDI;
-import ta.expressions.indicators.adx.PlusDI;
 
 public class CommandLineCalculator {
 

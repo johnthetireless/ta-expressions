@@ -1,7 +1,6 @@
 package ta.expressions.indicators.volume;
 
 import ta.expressions.common.change.RateOfChange;
-import ta.expressions.common.stats.Summation;
 import ta.expressions.core.AnalyticFunction;
 import ta.expressions.core.NumericExpression;
 import ta.expressions.indicators.ParameterString;

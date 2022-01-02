@@ -1,7 +1,5 @@
 package ta.expressions.demo;
 
-import ta.expressions.indicators.adx.ADXR;
-
 public class Indicators {
 
 	public static void main(String[] args) {

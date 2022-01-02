@@ -4,8 +4,6 @@ import ta.expressions.common.stats.EMA;
 import ta.expressions.core.AnalyticFunction;
 import ta.expressions.core.NumericExpression;
 import ta.expressions.indicators.ParameterString;
-import ta.expressions.indicators.macd.MACD;
-import ta.expressions.indicators.variables.ClosePrice;
 import ta.expressions.indicators.variables.Volume;
 
 public class VolumeOscillator extends AnalyticFunction {
