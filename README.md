@@ -13,4 +13,3 @@ Back testing
 Well-defined interfaces and extension points for a complete live trading system  
 
 There is a lot that needs to be done.
-Please forgive small import issues (classes folder in the demos project)

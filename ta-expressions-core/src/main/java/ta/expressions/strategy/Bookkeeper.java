@@ -12,8 +12,13 @@ import java.util.stream.Collectors;
 public class Bookkeeper {
 
 	private final List<TradingBook> books = new ArrayList<>();
+	
 	public void add(TradingBook book) {
 		books.add(book);
+	}
+	
+	public void addAll(List<TradingBook> books) {
+		books.addAll(books);
 	}
 	
 	public List<TradingBook> sort(Function<TradingBook, BigDecimal> function) {
@@ -28,6 +33,10 @@ public class Bookkeeper {
 				
 		Collections.sort(copy, comp);
 		return copy;
+	}
+	
+	public List<TradingBook> books() {
+		return books;
 	}
 	
 	public List<TradingBook> activeBooks() {

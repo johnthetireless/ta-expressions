@@ -31,11 +31,7 @@ public class StochasticMomentumIndex extends AnalyticFunction {
 		NumericExpression dividend = emaEmaD.multipliedBy(100);
 		NumericExpression divisor = emaEmaHL;
 		
-		this.formula = new TernaryOperation(
-				divisor.equalTo(0), 
-				Constant.valueOf(0), 
-				dividend.dividedBy(divisor)
-				);
+		this.formula = dividend.divideOrZero(divisor);
 	}
 
 	@Override

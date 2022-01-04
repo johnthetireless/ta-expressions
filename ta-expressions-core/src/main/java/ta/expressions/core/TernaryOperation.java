@@ -19,7 +19,7 @@ public class TernaryOperation extends NumericExpression {
 
 	public TernaryOperation(BooleanExpression test, NumericExpression e1,
 			NumericExpression e2) {
-		super(test.representation() + " ? " + e1.representation() + " : " + e2.representation());
+		super("(" + test.representation() + " ? " + e1.representation() + " : " + e2.representation() + ")");
 		this.test = test;
 		this.e1 = e1;
 		this.e2 = e2;

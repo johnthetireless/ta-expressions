@@ -91,8 +91,14 @@ public class TradingBook {
 	}
 	
 	public List<Position> sort(Function<Position, BigDecimal> function) {
-		List<Position> copy = List.copyOf(positions);
-		Comparator<Position> comp = (a,b) -> function.apply(a).compareTo(function.apply(b));
+		return sort(function, true);
+	}
+	
+	public List<Position> sort(Function<Position, BigDecimal> function, boolean descending) {
+		List<Position> copy = new ArrayList<>(positions);
+		Comparator<Position> comp = descending 
+									? (a,b) -> function.apply(b).compareTo(function.apply(a))
+									: (a,b) -> function.apply(a).compareTo(function.apply(b));
 		Collections.sort(copy, comp);
 		return copy;
 	}

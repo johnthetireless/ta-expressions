@@ -71,7 +71,7 @@ class Arithmetic {
 	static NumericExpression log10(NumericExpression e) {
 		return new Log10(e);
 	}
-
+	
 	private Arithmetic() {}
 	
 	interface BigDecimalBinaryOperator {
@@ -223,7 +223,6 @@ class Arithmetic {
 		public Set<NumericExpression> operands() {
 			return Set.of(e);
 		}
-	
 	}
-
+	
 }

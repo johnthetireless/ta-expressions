@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import ta.expressions.core.BooleanExpression;
+import ta.expressions.demo.Filter;
 import ta.expressions.indicators.variables.HighPrice;
 import ta.expressions.indicators.variables.LowPrice;
 

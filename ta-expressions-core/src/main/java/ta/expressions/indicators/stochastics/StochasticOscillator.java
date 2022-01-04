@@ -29,11 +29,7 @@ public class StochasticOscillator extends AnalyticFunction {
 		super(functionRepresentation(KEYWORD, n1, n2));
 		NumericExpression dividend = ClosePrice.INSTANCE.minus(LowestValue.lowestLow(n1)).multipliedBy(100);
 		NumericExpression divisor = HighestValue.highestHigh(n1).minus(LowestValue.lowestLow(n1));
-		NumericExpression raw = new TernaryOperation(
-				divisor.equalTo(0), 
-				Constant.valueOf(0), 
-				dividend.dividedBy(divisor)
-				);
+		NumericExpression raw = dividend.divideOrZero(divisor);
 		this.formula = n2 > 1 ? new SMA(raw, n2) : raw;
 	}
 

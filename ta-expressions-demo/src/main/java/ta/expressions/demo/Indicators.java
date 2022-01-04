@@ -1,5 +1,7 @@
 package ta.expressions.demo;
 
+import ta.expressions.indicators.TrendIntensityIndex;
+
 public class Indicators {
 
 	public static void main(String[] args) {
@@ -12,6 +14,7 @@ public class Indicators {
 			System.out.println(desc);
 		}
 		
+		System.out.println(new TrendIntensityIndex(40).equation());
 
 	}
 

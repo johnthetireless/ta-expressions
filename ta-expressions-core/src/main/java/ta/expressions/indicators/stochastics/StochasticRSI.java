@@ -27,11 +27,7 @@ public class StochasticRSI extends AnalyticFunction {
 		NumericExpression highest = new HighestValue(rsi, n);
 		NumericExpression dividend = rsi.minus(lowest).multipliedBy(100);
 		NumericExpression divisor = highest.minus(lowest);
-		this.formula = new TernaryOperation(
-				divisor.equalTo(0), 
-				Constant.valueOf(0), 
-				dividend.dividedBy(divisor)
-				);
+		this.formula = dividend.divideOrZero(divisor);
 	}
 
 	@Override

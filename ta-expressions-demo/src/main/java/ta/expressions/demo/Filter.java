@@ -1,4 +1,4 @@
-package ta.expressions.demo.strategy;
+package ta.expressions.demo;
 
 import java.io.IOException;
 import java.nio.file.DirectoryIteratorException;
@@ -13,6 +13,7 @@ import java.util.Set;
 import ta.expressions.app.Evaluation;
 import ta.expressions.core.Aggregate;
 import ta.expressions.core.BooleanExpression;
+import ta.expressions.demo.strategy.CandleReader;
 
 public class Filter {
 
@@ -37,10 +38,12 @@ public class Filter {
 	public static class Match {
 		private final String symbol;
 		private final BooleanExpression expression;
+		private final long timestamp;
 		
-		Match(String symbol, BooleanExpression expression) {
+		Match(String symbol, BooleanExpression expression, long timestamp) {
 			this.symbol = symbol;
 			this.expression = expression;
+			this.timestamp = timestamp;
 		}
 
 		public String symbol() {
@@ -53,8 +56,9 @@ public class Filter {
 
 		@Override
 		public String toString() {
-			return "Match [symbol=" + symbol + ", expression=" + expression + "]";
+			return "Match [symbol=" + symbol + ", expression=" + expression + ", timestamp=" + timestamp + "]";
 		}
+
 		
 	}
 	
@@ -74,7 +78,7 @@ public class Filter {
 					Boolean b = map.get(e.toString());
 					if ( b != null && b ) {
 						
-						matches.add(new Match(symbol, e));
+						matches.add(new Match(symbol, e, aggs.get(i).timestamp()));
 					}
 				}
 			}

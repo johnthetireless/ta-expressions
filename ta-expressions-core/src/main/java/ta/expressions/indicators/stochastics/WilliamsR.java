@@ -24,11 +24,7 @@ public class WilliamsR extends AnalyticFunction {
 		super(functionRepresentation(KEYWORD, n));
 		NumericExpression dividend = HighestValue.highestHigh(n).minus(ClosePrice.INSTANCE).multipliedBy(-100);
 		NumericExpression divisor = HighestValue.highestHigh(n).minus(LowestValue.lowestLow(n));
-		this.formula = new TernaryOperation(
-				divisor.equalTo(0), 
-				Constant.valueOf(0), 
-				dividend.dividedBy(divisor)
-				);
+		this.formula = dividend.divideOrZero(divisor);
 	}
 
 	@Override

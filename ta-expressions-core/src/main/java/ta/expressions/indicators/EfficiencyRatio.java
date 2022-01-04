@@ -25,10 +25,7 @@ public class EfficiencyRatio extends AnalyticFunction {
 		NumericExpression close = ClosePrice.INSTANCE;
 		NumericExpression change = new Change(close, n);
 		NumericExpression volatility = new Summation(change.abs(), n);
-		this.formula = new TernaryOperation(
-				volatility.equalTo(0), 
-				Constant.valueOf(0), 
-				change.dividedBy(volatility));
+		this.formula = change.divideOrZero(volatility);
 	}
 
 	@Override

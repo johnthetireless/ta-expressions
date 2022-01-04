@@ -80,6 +80,10 @@ abstract class AbstractExpression<T> implements Expression<T> {
 		return symbol + "(" + e1.representation() + "," + e2.representation() + ")";
 	}
 
+	protected static <T> String functionRepresentation(String symbol, Expression<T> e1, Expression<T> e2, double k) {
+		return symbol + "(" + e1.representation() + "," + e2.representation() + "," + k + ")";
+	}
+
 	protected static <T> String functionRepresentation(String symbol, Expression<T> e1, Expression<T> e2, int n) {
 		return symbol + "(" + e1.representation() + "," + e2.representation() + "," + n + ")";
 	}

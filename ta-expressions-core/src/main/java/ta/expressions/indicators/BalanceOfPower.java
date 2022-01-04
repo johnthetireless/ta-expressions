@@ -22,11 +22,7 @@ public class BalanceOfPower extends AnalyticFunction {
 	public BalanceOfPower(int n) {
 		super(functionRepresentation(KEYWORD, n));
 		NumericExpression closeMinusOpen = ClosePrice.INSTANCE.minus(OpenPrice.INSTANCE);
-		NumericExpression bop = new TernaryOperation(
-				PriceRange.INSTANCE.equalTo(0),
-				Constant.valueOf(0),
-				closeMinusOpen.dividedBy(PriceRange.INSTANCE)
-				);
+		NumericExpression bop = closeMinusOpen.divideOrZero(PriceRange.INSTANCE);
 		this.formula = new SMA(bop, n);
 	}
 

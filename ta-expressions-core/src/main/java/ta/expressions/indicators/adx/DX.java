@@ -15,11 +15,8 @@ public class DX extends AnalyticFunction {
 		NumericExpression minusDI = new MinusDI(n);
 		NumericExpression sum = plusDI.plus(minusDI);
 		NumericExpression diff = plusDI.minus(minusDI);
-		this.formula = new TernaryOperation(
-				sum.equalTo(0), 
-				Constant.valueOf(0),
-				diff.abs().dividedBy(sum).multipliedBy(100)
-				);
+		NumericExpression dividend = diff.abs().multipliedBy(100);
+		this.formula = dividend.divideOrZero(sum);
 	}
 
 	@Override

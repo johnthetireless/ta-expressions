@@ -18,12 +18,7 @@ public class CorrelationCoefficient extends AnalyticFunction {
 		Variance v1 = new Variance(e1, n);
 		Variance v2 = new Variance(e2, n);
 		NumericExpression divisor = v1.multipliedBy(v2).sqrt();
-		
-		this.formula = new TernaryOperation(
-				divisor.equalTo(0), 
-				Constant.valueOf(0), 
-				cv.dividedBy(divisor)
-			);
+		this.formula = cv.divideOrZero(divisor);		
 	}
 
 

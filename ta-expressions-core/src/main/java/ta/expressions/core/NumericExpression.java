@@ -61,6 +61,10 @@ public abstract class NumericExpression extends AbstractExpression<BigDecimal> {
 	public NumericExpression dividedBy(Number n) {
 		return dividedBy(Constant.valueOf(n));
 	}
+	
+	public NumericExpression divideOrZero(NumericExpression other) {
+		return new TernaryOperation(other.equalTo(0), Constant.valueOf(0), this.dividedBy(other));
+	}
 
 	public NumericExpression max(NumericExpression other) {
 		return Arithmetic.max(this, other);

@@ -1,12 +1,16 @@
 package ta.expressions.demo;
 
 import java.util.List;
+import java.util.Set;
 
+import ta.expressions.app.CsvReader;
 import ta.expressions.common.stats.SMA;
+import ta.expressions.core.Aggregate;
 import ta.expressions.core.BooleanExpression;
 import ta.expressions.core.NumericExpression;
 import ta.expressions.indicators.variables.ClosePrice;
-import ta.expressions.signal.SignalEvaluation;
+import ta.expressions.signal.SignalGenerator;
+import ta.expressions.signal.SignalPrinter;
 
 /**
  * Simple count of signals from entry/exit expressions.
@@ -27,10 +31,8 @@ public class SignalGeneratorDemo {
 		BooleanExpression bullish = shortSMA.crossedOver(longSMA);
 		BooleanExpression bearish = shortSMA.crossedUnder(longSMA);
 		
-		String symbol = "SPY";
+		SignalGenerator generate = new SignalGenerator(Set.of(bullish, bearish), new SignalPrinter());
 
-		SignalEvaluation se = new SignalEvaluation(symbol, List.of(bullish, bearish));
-		se.run();
-		
+		CsvReader.readFile("SPY.csv").forEach(generate);
 	}	
 }

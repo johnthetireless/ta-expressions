@@ -26,12 +26,8 @@ public class ChoppinessIndex extends AnalyticFunction {
 		NumericExpression lowestTrueLow = new LowestValue(TrueLow.INSTANCE, n);
 		NumericExpression highestTrueHigh = new HighestValue(TrueHigh.INSTANCE, n);
 		NumericExpression divisor = highestTrueHigh.minus(lowestTrueLow);
-		NumericExpression e = new TernaryOperation(
-				divisor.equalTo(0), 
-				Constant.valueOf(0), 
-				sumOfTrueRange.dividedBy(divisor));
+		NumericExpression e = sumOfTrueRange.divideOrZero(divisor);
 		double log10N = Math.log10(n);
-		
 		this.formula = e.log10().dividedBy(log10N).multipliedBy(100);
 	}
 

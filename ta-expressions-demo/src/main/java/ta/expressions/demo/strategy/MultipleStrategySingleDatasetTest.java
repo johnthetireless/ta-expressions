@@ -24,9 +24,11 @@ public class MultipleStrategySingleDatasetTest {
 			strategies.add(new EMACrossoverStrategy(i, i * 3));
 			strategies.add(new ThreeEMAStrategy(i, i * 3, i * 9));
 		}
+		strategies.add(new TrendIntensityIndexStrategy1(40));
+		strategies.add(new TrendIntensityIndexStrategy2(40));
+		strategies.add(new TrendIntensityIndexStrategy3(40,12));
 		
-		
-		String symbol = "AMZN";
+		String symbol = "ZION";
 		String pathname = "src/main/resources/candles/" + symbol + ".csv";
 		Path file = Paths.get(pathname);
 		List<Aggregate> aggregates = CandleReader.readFile(file);

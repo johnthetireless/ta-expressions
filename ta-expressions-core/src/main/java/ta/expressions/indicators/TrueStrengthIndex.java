@@ -24,11 +24,7 @@ public class TrueStrengthIndex extends AnalyticFunction {
 		NumericExpression change = new Change(ClosePrice.INSTANCE, 1);
 		NumericExpression dividend = emaEma(change, n1, n2).multipliedBy(100);
 		NumericExpression divisor = emaEma(change.abs(), n1, n2);
-		this.formula = new TernaryOperation(
-				divisor.equalTo(0), 
-				Constant.valueOf(0), 
-				dividend.dividedBy(divisor)
-				);
+		this.formula = dividend.divideOrZero(divisor);
 	}
 	
 	@Override

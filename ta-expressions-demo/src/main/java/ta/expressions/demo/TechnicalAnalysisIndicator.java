@@ -19,6 +19,7 @@ import ta.expressions.indicators.RSI;
 import ta.expressions.indicators.TEMA;
 import ta.expressions.indicators.TRIX;
 import ta.expressions.indicators.TrueStrengthIndex;
+import ta.expressions.indicators.TrendIntensityIndex;
 import ta.expressions.indicators.adx.ADX;
 import ta.expressions.indicators.adx.ADXR;
 import ta.expressions.indicators.adx.MinusDI;
@@ -348,7 +349,13 @@ public enum TechnicalAnalysisIndicator {
 			"Stochastics RSI"
 			),
 
-	TRIMPLE_EXPONENTIAL_MOVING_AVERAGE(
+	TREND_INTENSITY_INDEX(
+			TrendIntensityIndex.KEYWORD, 
+			TrendIntensityIndex::fromString, 
+			"Trend Intensity Index"
+			),
+
+	TRIPLE_EXPONENTIAL_MOVING_AVERAGE(
 			TEMA.KEYWORD, 
 			TEMA::fromString, 
 			"Triple Exponential Moving Average"
