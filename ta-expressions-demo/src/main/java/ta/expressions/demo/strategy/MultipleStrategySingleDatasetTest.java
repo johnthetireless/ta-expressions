@@ -1,5 +1,6 @@
 package ta.expressions.demo.strategy;
 
+import java.math.MathContext;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Instant;
@@ -15,6 +16,13 @@ import ta.expressions.strategy.Strategy;
 import ta.expressions.strategy.SymbolBookkeeper;
 import ta.expressions.strategy.TradingBook;
 
+/**
+ * Compares a list of strategies by running each over a single data set.
+ * <p>
+ * Current close prices are recorded as the strategies entry and exit positions.
+ * These prices are used to calculate a prices change, which is simply summed.
+ * This is a naive approach, but it is considered a good start.
+ */
 public class MultipleStrategySingleDatasetTest {
 
 	public static void main(String[] args) {
@@ -28,20 +36,23 @@ public class MultipleStrategySingleDatasetTest {
 		strategies.add(new TrendIntensityIndexStrategy2(40));
 		strategies.add(new TrendIntensityIndexStrategy3(40,12));
 		
-		String symbol = "ZION";
+		String symbol = "AMZN";
 		String pathname = "src/main/resources/candles/" + symbol + ".csv";
 		Path file = Paths.get(pathname);
 		List<Aggregate> aggregates = CandleReader.readFile(file);
 		
-		MultipleStrategyExecution exec = new MultipleStrategyExecution(symbol, strategies);
+    	Aggregate first = aggregates.get(0);
+    	Aggregate last = aggregates.get(aggregates.size() - 1);
+    	System.out.println("# inputs: " + aggregates.size());
+    	System.out.println("First date: " + localDate(first.timestamp()));
+    	System.out.println("Last date: " + localDate(last.timestamp()));
+    	System.out.println("First close: " + first.close());
+    	System.out.println("Last close: " + last.close());
+    	System.out.println("Change: " + last.close().subtract(first.close(), MathContext.DECIMAL64));
+
+    	MultipleStrategyExecution exec = new MultipleStrategyExecution(symbol, strategies);
     	SignalGenerator sg = new SignalGenerator(exec.expressions(), exec);
     	aggregates.forEach(sg);
-    	
-    	Aggregate last = aggregates.get(aggregates.size() - 1);
-    	Instant instant = Instant.ofEpochSecond(last.timestamp());
-    	LocalDate date = LocalDate.ofInstant(instant, ZoneId.systemDefault());
-    	System.out.println("# inputs: " + aggregates.size());
-    	System.out.println("Last date: " + date);
     	
     	exec.closeCurrentPositions(last.close(), last.timestamp());
     	
@@ -54,6 +65,11 @@ public class MultipleStrategySingleDatasetTest {
 //    		System.out.println();
     	}
 
+	}
+	
+	static LocalDate localDate(long timestamp) {
+		Instant i = Instant.ofEpochSecond(timestamp);
+		return LocalDate.ofInstant(i, ZoneId.systemDefault());
 	}
 
 }

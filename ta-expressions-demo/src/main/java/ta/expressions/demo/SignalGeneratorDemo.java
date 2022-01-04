@@ -1,11 +1,9 @@
 package ta.expressions.demo;
 
-import java.util.List;
 import java.util.Set;
 
 import ta.expressions.app.CsvReader;
 import ta.expressions.common.stats.SMA;
-import ta.expressions.core.Aggregate;
 import ta.expressions.core.BooleanExpression;
 import ta.expressions.core.NumericExpression;
 import ta.expressions.indicators.variables.ClosePrice;

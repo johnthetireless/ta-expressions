@@ -3,9 +3,7 @@ package ta.expressions.indicators.stochastics;
 import ta.expressions.common.stats.HighestValue;
 import ta.expressions.common.stats.LowestValue;
 import ta.expressions.core.AnalyticFunction;
-import ta.expressions.core.Constant;
 import ta.expressions.core.NumericExpression;
-import ta.expressions.core.TernaryOperation;
 import ta.expressions.indicators.ParameterString;
 import ta.expressions.indicators.variables.ClosePrice;
 

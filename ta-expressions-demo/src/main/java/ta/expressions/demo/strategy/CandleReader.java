@@ -35,18 +35,6 @@ public class CandleReader {
 		return list;
 	}
 	
-	public static List<Path> readDirectory(Path dir) {
-		List<Path> list = new ArrayList<>();
-		try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
-		    for (Path file: stream) {
-		        list.add(file);
-		    }
-		} catch (IOException | DirectoryIteratorException x) {
-		    System.err.println(x);
-		}
-		return list;
-	}
-	
 	private static Aggregate createAggregate(String line) {
 		String[] parts = line.split(",");
 		long timestamp = Long.valueOf(parts[0]);

@@ -9,7 +9,6 @@ import java.util.List;
 
 import ta.expressions.core.Aggregate;
 import ta.expressions.signal.SignalGenerator;
-import ta.expressions.strategy.Position;
 import ta.expressions.strategy.Strategy;
 import ta.expressions.strategy.StrategyExecution;
 import ta.expressions.strategy.TradingBook;
@@ -17,7 +16,7 @@ import ta.expressions.strategy.TradingBook;
 /**
  * Tests a single strategy using a single data set.
  * This simulates buy/sell market orders, using the current close price as the fill price.
- * Additional rule/order types will be defined soon.
+ * This is a start.
  *
  */
 public class SingleStrategySingleDatasetTest {

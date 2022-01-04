@@ -19,6 +19,22 @@ import ta.expressions.strategy.StrategyBookkeeper;
 import ta.expressions.strategy.SymbolBookkeeper;
 import ta.expressions.strategy.TradingBook;
 
+/**
+ * This is a rough attempt to compare a list of strategies
+ * by running them over 505 data sets.
+ * Each data set has 5 years of daily OHLCV for an S&P500 stock; there are ~1300 OHLCV values per file.
+ * <p>
+ * Current close prices are recorded as the strategies entry and exit positions.
+ * These prices are used to calculate a price change, which is simply summed.
+ * This is a naive approach, but it is considered a good start.
+ * 
+ * This is not a natural use case; one would never do this with read data/money.
+ * The code below is a bit convoluted as a result.  A database to record all the data produced by this example would be a good idea.
+ *  <p>
+ * The Trend Intensity Index strategies produced the best numbers by far.
+ * <p>
+ * 
+ */
 public class MultipleStrategyMultipleDatasetTest {
 
 	public static void main(String[] args) {
@@ -72,18 +88,14 @@ public class MultipleStrategyMultipleDatasetTest {
     	String filename = file.getFileName().toString();
     	String symbol = filename.substring(0, filename.length() - 4);
 		List<Aggregate> aggs = CandleReader.readFile(file);
-		AggregateDataset dataset = new AggregateDataset(symbol, aggs);
-		return processDataset(dataset, strategies);
+		return processDataset(symbol, aggs, strategies);
 		
 	}
 	
-	static SymbolBookkeeper processDataset(AggregateDataset dataset, List<Strategy> strategies) {
-//		if ( dataset.priceChange().signum() < 0 ) {
-//			return List.of();
-//		}
-		MultipleStrategyExecution exec = new MultipleStrategyExecution(dataset.name(), strategies);
+	static SymbolBookkeeper processDataset(String symbol, List<Aggregate> aggs, List<Strategy> strategies) {
+		MultipleStrategyExecution exec = new MultipleStrategyExecution(symbol, strategies);
     	SignalGenerator sg = new SignalGenerator(exec.expressions(), exec);
-    	dataset.data().forEach(sg);
+    	aggs.forEach(sg);
 		return exec.bookkeeper();
 	}
 

@@ -1,9 +1,7 @@
 package ta.expressions.indicators.adx;
 
 import ta.expressions.core.AnalyticFunction;
-import ta.expressions.core.Constant;
 import ta.expressions.core.NumericExpression;
-import ta.expressions.core.TernaryOperation;
 
 public class DX extends AnalyticFunction {
 

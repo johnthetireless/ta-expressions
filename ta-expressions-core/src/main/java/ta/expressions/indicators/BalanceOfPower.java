@@ -2,9 +2,7 @@ package ta.expressions.indicators;
 
 import ta.expressions.common.stats.SMA;
 import ta.expressions.core.AnalyticFunction;
-import ta.expressions.core.Constant;
 import ta.expressions.core.NumericExpression;
-import ta.expressions.core.TernaryOperation;
 import ta.expressions.indicators.variables.ClosePrice;
 import ta.expressions.indicators.variables.OpenPrice;
 

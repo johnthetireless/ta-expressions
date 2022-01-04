@@ -1,9 +1,7 @@
 package ta.expressions.indicators;
 
 import ta.expressions.common.change.Change;
-import ta.expressions.common.stats.SMA;
 import ta.expressions.common.stats.Summation;
-import ta.expressions.common.stats.Variance;
 import ta.expressions.core.AnalyticFunction;
 import ta.expressions.core.NumericExpression;
 import ta.expressions.indicators.variables.ClosePrice;
