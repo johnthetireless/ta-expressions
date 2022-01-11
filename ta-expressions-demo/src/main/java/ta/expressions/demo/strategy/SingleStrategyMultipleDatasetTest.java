@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import ta.expressions.core.Aggregate;
+import ta.expressions.indicators.AwesomeOscillator;
 import ta.expressions.signal.SignalGenerator;
 import ta.expressions.strategy.Strategy;
 import ta.expressions.strategy.StrategyBookkeeper;
@@ -27,7 +28,8 @@ public class SingleStrategyMultipleDatasetTest {
 
 	public static void main(String[] args) {
 
-		Strategy strategy = new ThreeEMAStrategy(5, 21, 63);
+//		Strategy strategy = new ThreeEMAStrategy(5, 21, 63);
+		Strategy strategy = new CenterLineCrossoverStrategy(new AwesomeOscillator(5, 34), 0);
 		StrategyBookkeeper bookkeeper = new StrategyBookkeeper(strategy);
 		
 		Path dir = Paths.get("src/main/resources/candles");
@@ -46,8 +48,8 @@ public class SingleStrategyMultipleDatasetTest {
 		}
 		
 		System.out.println("Active books: " + bookkeeper.activeBookCount());
-		System.out.println("Total price change: " + bookkeeper.total(TradingBook::totalPriceChange));
 		bookkeeper.sort(TradingBook::totalPriceChange).forEach(System.out::println);
+		System.out.println("Total price change: " + bookkeeper.total(TradingBook::totalPriceChange));
 	}
 
 }

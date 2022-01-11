@@ -1,7 +1,6 @@
 package ta.expressions.strategy;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,15 +19,15 @@ public class MultipleStrategyExecution implements Consumer<Signal> {
 	
 	private final String symbol;
 	private final List<StrategyExecution> executions = new ArrayList<>();
-	private final SymbolBookkeeper symbolBookkeeper;
+	private final SymbolBookkeeper bookkeeper;
 	
 	public MultipleStrategyExecution(String symbol, List<Strategy> strategies) {
 		this.symbol = symbol;
-		this.symbolBookkeeper = new SymbolBookkeeper(symbol);
+		this.bookkeeper = new SymbolBookkeeper(symbol);
 		for ( Strategy s : strategies ) {
 			StrategyExecution e = new StrategyExecution(s, symbol);
 			executions.add(e);
-			symbolBookkeeper.add(e.book());
+			bookkeeper.add(e.book());
 		}
 	}
 
@@ -54,32 +53,8 @@ public class MultipleStrategyExecution implements Consumer<Signal> {
 		executions.forEach(e -> set.addAll(e.expressions()));
 		return set;
 	}
-	
-	public BigDecimal totalPriceChange() {
-		BigDecimal total = BigDecimal.ZERO;
-		for ( int i = 0; i < executions.size(); i++ ) {
-			total = total.add(executions.get(i).totalPriceChange(), MathContext.DECIMAL64);
-		}
-		return total;
-	}
-	
-	public BigDecimal closedPositionCount() {
-		BigDecimal count = BigDecimal.ZERO;
-		for ( StrategyExecution e : executions ) {
-			count = count.add(e.book().count(), MathContext.DECIMAL64);
-		}
-		return count;
-	}
-	
-	public List<Position> closedPositions() {
-		List<Position> list = new ArrayList<>();
-		for ( StrategyExecution e : executions ) {
-			list.addAll(e.book().positions());
-		}
-		return list;
-	}
-	
+			
 	public SymbolBookkeeper bookkeeper() {
-		return symbolBookkeeper;
+		return bookkeeper;
 	}
 }

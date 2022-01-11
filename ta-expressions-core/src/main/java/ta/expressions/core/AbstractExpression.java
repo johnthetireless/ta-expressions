@@ -117,6 +117,10 @@ abstract class AbstractExpression<T> implements Expression<T> {
 		return symbol + "(" + n1 + "," + n2 + "," + n3 + ")";
 	}
 
+	protected static <T> String functionRepresentation(String symbol, int n1, int n2, int n3, int n4) {
+		return symbol + "(" + n1 + "," + n2 + "," + n3 + "," + n4 + ")";
+	}
+
 	protected static <T> String functionRepresentation(String symbol, int n, double k1, double k2) {
 		return symbol + "(" + n + "," + k1 + "," + k2 + ")";
 	}

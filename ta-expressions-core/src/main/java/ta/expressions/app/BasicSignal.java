@@ -14,8 +14,6 @@ public class BasicSignal implements Signal {
 	private final BooleanExpression cause;
 	private final Map<NumericExpression, BigDecimal> values;
 	private final Aggregate input;
-
-	
 	
 	public BasicSignal(int index, BooleanExpression cause, Map<NumericExpression, BigDecimal> values, Aggregate input) {
 		super();

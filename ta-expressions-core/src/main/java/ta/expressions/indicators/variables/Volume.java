@@ -8,10 +8,6 @@ public class Volume extends Variable {
 
 	public static final Volume INSTANCE = new Volume();
 	
-	public static Volume fromString(String ignored) {
-		return INSTANCE;
-	}
-	
 	private Volume() {
 		super(KEYWORD, Aggregate::volume);
 	}

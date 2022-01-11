@@ -1,7 +1,10 @@
-package ta.expressions.indicators;
+package ta.expressions.indicators.volume;
 
 import ta.expressions.core.AnalyticFunction;
 import ta.expressions.core.NumericExpression;
+import ta.expressions.indicators.ParameterString;
+import ta.expressions.indicators.RSI;
+import ta.expressions.indicators.TypicalPrice;
 import ta.expressions.indicators.variables.Volume;
 
 public class MoneyFlowIndex extends AnalyticFunction {

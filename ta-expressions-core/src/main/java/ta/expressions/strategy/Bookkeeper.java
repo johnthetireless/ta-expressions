@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * A simple container for books.  This is a thrown together design.  It will change.
+ *
+ */
 public class Bookkeeper {
 
 	private final List<TradingBook> books = new ArrayList<>();

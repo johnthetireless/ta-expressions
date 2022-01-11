@@ -21,7 +21,7 @@ public class SymbolBookkeeper extends Bookkeeper {
 	}
 	
 	public List<TradingBook> booksForTrader(String traderName) {
-		return books().stream().filter(b -> b.traderName().equals(traderName)).collect(Collectors.toList());
+		return books().stream().filter(b -> b.strategyName().equals(traderName)).collect(Collectors.toList());
 	}
 	
 	

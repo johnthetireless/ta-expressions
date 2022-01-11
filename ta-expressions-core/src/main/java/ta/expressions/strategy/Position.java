@@ -22,8 +22,6 @@ public class Position {
 	private BigDecimal exitPrice;
 	private long exitTimestamp = -1;
 	
-	private BigDecimal priceChange;
-	
 	public Position(String symbol, Strategy strategy) {
 		this.symbol = symbol;
 		this.strategy = strategy;
@@ -44,7 +42,6 @@ public class Position {
 		this.entryTimestamp = entryTimestamp;
 		this.exitPrice = exitPrice;
 		this.exitTimestamp = exitTimestamp;
-		this.priceChange = exitPrice.subtract(entryPrice, MathContext.DECIMAL64);
 	}
 	
 	public String symbol() {
@@ -98,8 +95,7 @@ public class Position {
 	}
 	
 	public BigDecimal priceChange() {
-//		return exitPrice.subtract(entryPrice, MathContext.DECIMAL64);
-		return priceChange;
+		return exitPrice.subtract(entryPrice, MathContext.DECIMAL64);
 	}
 	
 	public BigDecimal changeRatio() {

@@ -18,20 +18,24 @@ import java.util.function.Predicate;
 public class TradingBook {
 
 	private final String symbol;
-	private final String traderName;
+	private final Strategy strategy;
 	private final List<Position> positions = new ArrayList<>();
 	
-	public TradingBook(String symbol, String traderName) {
+	public TradingBook(String symbol, Strategy strategy) {
 		this.symbol = symbol;
-		this.traderName = traderName;
+		this.strategy = strategy;
 	}
 
 	public String symbol() {
 		return symbol;
 	}
 	
-	public String traderName() {
-		return traderName;
+	public Strategy strategy() {
+		return strategy;
+	}
+	
+	public String strategyName() {
+		return strategy.name();
 	}
 	
 	public void add(Position p) {
@@ -103,6 +107,33 @@ public class TradingBook {
 		return copy;
 	}
 	
+	public List<String> report(List<PositionField> fields, Function<Position, BigDecimal> function, boolean descending) {
+		List<String> results = new ArrayList<>();
+		List<Position> sorted = sort(function, descending);
+		for ( Position p : sorted ) {
+			List<String> strings = new ArrayList<>();
+			for ( PositionField f : fields ) {
+				strings.add(f.apply(p));
+			}
+			String commaString = String.join(", ", strings);
+			results.add(commaString);
+		}
+		return results;
+	}
+	
+	public List<String> report(List<PositionField> fields) {
+		List<String> results = new ArrayList<>();
+		for ( Position p : positions ) {
+			List<String> strings = new ArrayList<>();
+			for ( PositionField f : fields ) {
+				strings.add(f.apply(p));
+			}
+			String commaString = String.join(", ", strings);
+			results.add(commaString);
+		}
+		return results;
+	}
+	
 	public Duration totalDuration() {
 		Duration total = Duration.ZERO;
 		for ( Position p : positions ) {
@@ -121,8 +152,11 @@ public class TradingBook {
 
 	@Override
 	public String toString() {
-		return "TradingBook [symbol=" + symbol + ", traderName=" + traderName + ", count()=" + count()
-				+ ", totalPriceChange()=" + totalPriceChange() + "]";
+		return "TradingBook [symbol=" + symbol 
+				+ ", strategy=" + strategy.name() 
+				+ ", count=" + count()
+				+ ", totalPriceChange=" + totalPriceChange() 
+				+ "]";
 	}
 	
 	

@@ -25,7 +25,7 @@ public class StrategyExecution implements Consumer<Signal> {
 		this.strategy = strategy;
 		this.symbol = symbol;
 		this.currentPosition = new Position(symbol, strategy);
-		this.book = new TradingBook(symbol, strategy.name());
+		this.book = new TradingBook(symbol, strategy);
 	}
 
 	@Override
@@ -56,10 +56,6 @@ public class StrategyExecution implements Consumer<Signal> {
 		return book;
 	}
 
-//	public List<Position> closedPositions() {
-//		return book.positions();
-//	}
-	
 	public void closeCurrentPosition(BigDecimal price, long timestamp) {
 		Position newPosition = currentPosition.close(price, timestamp);
 		if ( newPosition.isClosed() ) {
@@ -75,9 +71,5 @@ public class StrategyExecution implements Consumer<Signal> {
 	public BigDecimal totalPriceChange() {
 		return book.totalPriceChange();
 	}
-	
-//	public long closedPositionCount() {
-//		return book.count();
-//	}
 	
 }

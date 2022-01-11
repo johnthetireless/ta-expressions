@@ -1,18 +1,26 @@
 package ta.expressions.demo.strategy;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.DirectoryIteratorException;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import ta.expressions.core.Aggregate;
+import ta.expressions.indicators.CCI;
+import ta.expressions.indicators.CMO;
+import ta.expressions.indicators.TrendIntensityIndex;
+import ta.expressions.indicators.stochastics.StochasticMomentumIndex;
 import ta.expressions.signal.SignalGenerator;
+import ta.expressions.strategy.Bookkeeper;
 import ta.expressions.strategy.MultipleStrategyExecution;
 import ta.expressions.strategy.Strategy;
 import ta.expressions.strategy.StrategyBookkeeper;
@@ -28,11 +36,13 @@ import ta.expressions.strategy.TradingBook;
  * These prices are used to calculate a price change, which is simply summed.
  * This is a naive approach, but it is considered a good start.
  * 
- * This is not a natural use case; one would never do this with read data/money.
- * The code below is a bit convoluted as a result.  A database to record all the data produced by this example would be a good idea.
+ * This is not a natural use case; one would never do this with real data/money.
+ * The code below is a bit convoluted as a result.  
+ * A database to record all the data produced by this example would be a good idea.
+ * Over 100,000 positions are opened and closed for most tests.
+ * 20 strategies x 505 securities x 5 years of data
+ * This takes 2-3 minutes to run.  It could be optimized, but this is unnatural, so it may not be.
  *  <p>
- * The Trend Intensity Index strategies produced the best numbers by far.
- * <p>
  * 
  */
 public class MultipleStrategyMultipleDatasetTest {
@@ -40,14 +50,10 @@ public class MultipleStrategyMultipleDatasetTest {
 	public static void main(String[] args) {
 		
 		List<Strategy> strategies = new ArrayList<>();
-		for ( int i = 7; i < 15; i+=2 ) {
-			strategies.add(new EMACrossoverStrategy(i, i * 3));
-			strategies.add(new ThreeEMAStrategy(i, i * 3, i * 9));
+		for ( int i = 5; i <= 100; i += 5 ) {
+			strategies.add(new CenterLineCrossoverStrategy(new StochasticMomentumIndex(i), 0));
 		}
-		strategies.add(new TrendIntensityIndexStrategy1(40));
-		strategies.add(new TrendIntensityIndexStrategy2(40));
-		strategies.add(new TrendIntensityIndexStrategy3(40,12));
-		
+
 		List<SymbolBookkeeper> symbolBookkeepers = new ArrayList<>();
 		Map<String, StrategyBookkeeper> strategyBookkeepers = new HashMap<>();
 		
@@ -71,17 +77,24 @@ public class MultipleStrategyMultipleDatasetTest {
 			for ( Strategy s : strategies ) {
 				StrategyBookkeeper sb = strategyBookkeepers.get(s.name());
 				for ( TradingBook book : b.books() ) {
-					if ( book.traderName().equalsIgnoreCase(s.name()) ) {
+					if ( book.strategyName().equalsIgnoreCase(s.name()) ) {
 						sb.add(book);
 					}
 				}
 			}
 		}
 		
+		List<BookkeeperValue> values = new ArrayList<>();
 		for ( StrategyBookkeeper sb : strategyBookkeepers.values() ) {
-			System.out.println(sb.toString() + " " + sb.total(TradingBook::totalPriceChange));
+//			System.out.println(sb.toString() + " " + sb.total(TradingBook::totalPriceChange));
+			BigDecimal total = sb.total(TradingBook::totalPriceChange);
+			BigDecimal count = sb.total(TradingBook::count);
+			values.add(new BookkeeperValue(sb, total, count));
 		}	
 		
+		Comparator<BookkeeperValue> comp = (a,b) -> b.value.compareTo(a.value);
+		Collections.sort(values, comp);
+		values.forEach(System.out::println);
 	}
 	
 	static SymbolBookkeeper processFile(Path file, List<Strategy> strategies) {
@@ -97,6 +110,23 @@ public class MultipleStrategyMultipleDatasetTest {
     	SignalGenerator sg = new SignalGenerator(exec.expressions(), exec);
     	aggs.forEach(sg);
 		return exec.bookkeeper();
+	}
+	
+	static class BookkeeperValue {
+		private final Bookkeeper bookkeeper;
+		private final BigDecimal value;
+		private final BigDecimal count;
+		public BookkeeperValue(Bookkeeper bookkeeper, BigDecimal value, BigDecimal count) {
+			super();
+			this.bookkeeper = bookkeeper;
+			this.value = value;
+			this.count = count;
+		}
+		@Override
+		public String toString() {
+			return "BookkeeperValue [bookkeeper=" + bookkeeper + ", value=" + value + ", count=" + count + "]";
+		}
+		
 	}
 
 }
